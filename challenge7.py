@@ -1,3 +1,5 @@
+import mpmath
+
 def is_prime(n):
     if n < 2:
         return False
@@ -21,11 +23,17 @@ numbers = [
     29944, 24877, 50412, 14083, 25457
 ]
 
+#get the right 373rd decimal for pi
+#try 374 instead
+mpmath.mp.dps = 374
+pi = str(mpmath.mp.pi)
+shift_value = int(pi[-1])  # 373rd decimal
+
 #filter non-prime
 prime_numbers = [num for num in numbers if is_prime(num)]
 
 #right shift remaining
-shifted_numbers = [num >> 1 for num in prime_numbers]
+shifted_numbers = [num >> shift_value for num in prime_numbers]
 
 #convert numbers to characters
 password = ''.join(chr(num) for num in shifted_numbers)
